@@ -63,15 +63,23 @@ def get_order_route():
 @app.route("/sync_origin_orders", methods=["GET"])
 @token_required
 def sync_origin_orders_route():
-    # Call the sync_origin_orders function
-    return sync_origin_orders()
+    sync_origin_orders()
+    return "OK"
 
 
 @app.route("/deliver_orders", methods=["GET"])
 @token_required
 def deliver_orders_route():
-    # Call the deliver_orders function
-    return deliver_orders()
+    deliver_orders()
+    return "OK"
+
+
+@app.route("/cron_together", methods=["GET"])
+@token_required
+def cron_together():
+    sync_origin_orders()
+    deliver_orders()
+    return "OK"
 
 
 if __name__ == "__main__":
