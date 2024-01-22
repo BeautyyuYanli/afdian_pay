@@ -10,7 +10,11 @@ class DataStruct(StructSpec, kw_only=True, frozen=True):
 
 
 bus_pool = ConnectionPool(
-    os.environ["PG_URL"], min_size=0, max_size=1, num_workers=1, prepare_threshold=None
+    os.environ["PG_URL"],
+    min_size=0,
+    max_size=1,
+    num_workers=1,
+    kwargs={"prepare_threshold": None},
 )
 
 
