@@ -2,7 +2,7 @@ import os
 
 from psycopg_pool import ConnectionPool
 
-db_pool = ConnectionPool(os.environ["PG_URL"])
+db_pool = ConnectionPool(os.environ["PG_URL"], prepare_threshold=None)
 
 # with db_pool.connection() as conn:
 #     conn.execute(

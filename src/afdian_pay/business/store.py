@@ -9,7 +9,9 @@ class DataStruct(StructSpec, kw_only=True, frozen=True):
     id: str
 
 
-bus_pool = ConnectionPool(os.environ["PG_URL"], min_size=0, max_size=1, num_workers=1)
+bus_pool = ConnectionPool(
+    os.environ["PG_URL"], min_size=0, max_size=1, num_workers=1, prepare_threshold=None
+)
 
 
 def deliver(conn: Connection, data: DataStruct):
