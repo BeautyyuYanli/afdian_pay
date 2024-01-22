@@ -215,6 +215,12 @@ def deliver_orders():
 
                 if name == "store":
                     from afdian_pay.business.store import DataStruct, bus_pool, deliver
+                elif name == "setulib_tg":
+                    from afdian_pay.business.setulib_tg import (
+                        DataStruct,
+                        bus_pool,
+                        deliver,
+                    )
                 else:
                     raise Exception(f"Unknown business name: {name}")
 
