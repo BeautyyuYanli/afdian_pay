@@ -13,11 +13,5 @@
   ],
   "env": {
     "PYTHONPATH": "$PYTHONPATH:./src"
-  },
-  "crons": [
-    {
-      "path": "/cron_together",
-      "schedule": "* * * * *"
-    }
-  ]
+  }
 }
