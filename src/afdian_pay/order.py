@@ -7,6 +7,7 @@ from urllib.parse import urlencode
 from afdian_pay.api_caller import caller
 from afdian_pay.db import db_pool
 from afdian_pay.spec import Order
+from afdian_pay.utils.logger import logger
 
 
 class OrderStatus(Enum):
@@ -198,36 +199,39 @@ def deliver_orders():
         )
         ids: List[str] = [row[0] for row in cur.fetchall()]
         for id in ids:
-            cur = conn.execute(
-                """
-                SELECT business_name, business_data 
-                FROM afdian_order 
-                WHERE id = %s AND status = %s
-                """,
-                (
-                    id,
-                    OrderStatus.paid,
-                ),
-            )
-            (name, data) = cur.fetchone()
-
-            if name == "store":
-                from afdian_pay.business.store import DataStruct, bus_pool, deliver
-            else:
-                raise Exception(f"Unknown business name: {name}")
-
-            with bus_pool.connection() as bus_conn:
-                deliver(bus_conn, DataStruct.from_dict(data))
-                conn.execute(
+            try:
+                cur = conn.execute(
                     """
-                    UPDATE afdian_order
-                    SET status = %s
-                    WHERE id = %s
-                """,
+                    SELECT business_name, business_data 
+                    FROM afdian_order 
+                    WHERE id = %s AND status = %s
+                    """,
                     (
-                        OrderStatus.delivered,
                         id,
+                        OrderStatus.paid,
                     ),
                 )
-                bus_conn.commit()
-                conn.commit()
+                (name, data) = cur.fetchone()
+
+                if name == "store":
+                    from afdian_pay.business.store import DataStruct, bus_pool, deliver
+                else:
+                    raise Exception(f"Unknown business name: {name}")
+
+                with bus_pool.connection() as bus_conn:
+                    deliver(bus_conn, DataStruct.from_dict(data))
+                    conn.execute(
+                        """
+                        UPDATE afdian_order
+                        SET status = %s
+                        WHERE id = %s
+                    """,
+                        (
+                            OrderStatus.delivered,
+                            id,
+                        ),
+                    )
+                    bus_conn.commit()
+                    conn.commit()
+            except Exception as e:
+                logger.error(f"Failed to deliver order {id}: {e}")
