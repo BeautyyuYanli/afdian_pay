@@ -1,5 +1,14 @@
-{
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/src/afdian_pay/api" }
-  ]
-}
+ {
+     "builds": [
+         {
+             "src": "src/afdian_pay/api.py",
+             "use": "@vercel/python"
+         }
+     ],
+     "routes": [
+         {
+             "src": "/(.*)",
+             "dest": "src/afdian_pay/api.py"
+         }
+     ]
+ }
