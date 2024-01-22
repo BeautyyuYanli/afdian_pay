@@ -1,5 +1,6 @@
-from psycopg_pool import ConnectionPool
 import os
+
+from psycopg_pool import ConnectionPool
 
 db_pool = ConnectionPool(os.environ["PG_URL"])
 

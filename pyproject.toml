@@ -13,7 +13,7 @@ dependencies = [
     "flask>=3.0.1",
     "psycopg[binary]>=3.1.17",
 ]
-requires-python = ">=3.11"
+requires-python = ">=3.9"
 readme = "README.md"
 license = {text = "MIT"}
 
@@ -22,7 +22,7 @@ requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py39"
 logger-objects = ["utils.logger.logger"]
 [tool.ruff.lint]
 select = ["E", "F", "G", "B", "I", "SIM", "TID", "PL", "RUF"]

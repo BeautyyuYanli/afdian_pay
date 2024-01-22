@@ -1,9 +1,10 @@
-from flask import Flask, request, abort
-from afdian_pay.order import create_order, sync_origin_orders, deliver_orders, get_order
 import os
-from typing import Any, Dict, List, Optional, Union
-from afdian_pay.spec import StructSpec
 from functools import wraps
+
+from flask import Flask, abort, request
+
+from afdian_pay.order import create_order, deliver_orders, get_order, sync_origin_orders
+from afdian_pay.spec import StructSpec
 
 app = Flask(__name__)
 

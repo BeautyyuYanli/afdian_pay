@@ -1,15 +1,12 @@
+import json
+import os
+from enum import Enum
+from typing import Any, Dict, List, Optional
+from urllib.parse import urlencode
+
 from afdian_pay.api_caller import caller
 from afdian_pay.db import db_pool
-from afdian_pay.utils.spec import StructSpec
-from typing import List, Dict
-from urllib.parse import urlencode
-import os, json
-from psycopg_pool import ConnectionPool
-from psycopg import connect
-from afdian_pay.api_caller import caller
 from afdian_pay.spec import Order
-from typing import List, Dict, Literal, Any, Optional
-from enum import Enum
 
 
 class OrderStatus(Enum):

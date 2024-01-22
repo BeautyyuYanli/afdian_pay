@@ -2,10 +2,10 @@ import json
 import os
 from datetime import datetime
 from hashlib import md5
-from typing import Any, Dict, List, Optional, Union
-from afdian_pay.spec import StructSpec, QueryOrderData
 
 import httpx
+
+from afdian_pay.spec import QueryOrderData
 
 
 class Caller:
@@ -32,7 +32,7 @@ class Caller:
         )
         response.raise_for_status()
         data = response.json()
-        if data["ec"] != 200:
+        if data["ec"] != 200:  # noqa
             raise Exception(f"Request failed: ec code error\n{data}")
         return data["data"]
 

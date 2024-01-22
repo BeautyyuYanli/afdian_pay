@@ -1,7 +1,8 @@
 import os
+
 from afdian_pay.utils.spec import StructSpec
-from psycopg_pool import ConnectionPool
 from psycopg import Connection
+from psycopg_pool import ConnectionPool
 
 
 class DataStruct(StructSpec, kw_only=True, frozen=True):

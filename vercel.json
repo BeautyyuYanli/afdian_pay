@@ -1,14 +1,17 @@
- {
-     "builds": [
-         {
-             "src": "src/afdian_pay/api.py",
-             "use": "@vercel/python"
-         }
-     ],
-     "routes": [
-         {
-             "src": "/(.*)",
-             "dest": "src/afdian_pay/api.py"
-         }
-     ]
- }
+{
+  "builds": [
+    {
+      "src": "src/afdian_pay/server.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/afdian_pay/server.py"
+    }
+  ],
+  "env": {
+    "PYTHONPATH": "$PYTHONPATH:./src"
+  }
+}
